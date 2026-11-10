@@ -1,0 +1,125 @@
+{
+  "images": [
+    {
+      "source": "/assets/hardware/p7/hero.png",
+      "served": "/assets/hardware/p7/hero.webp",
+      "source_bytes": 2106776,
+      "served_bytes": 350802,
+      "width": 1300,
+      "height": 1300,
+      "source_sha256": "4d22cb4e6bf33b73cf2aeb73c2400df9e9b89e963a15e75f930d6c47bba9e0dc",
+      "served_sha256": "4a1d15465387dac4b585c7b0f39d9c98d9ba40cf3780f334ccc4dab3d53bca15",
+      "rgba_sha256": "fdd611002ef9055470fe1a70665bc19bdde68b7dad54d67060fd4e7300c1400c"
+    },
+    {
+      "source": "/assets/hardware/l20/product-back.png",
+      "served": "/assets/hardware/l20/product-back.webp",
+      "source_bytes": 6735362,
+      "served_bytes": 1001028,
+      "width": 2000,
+      "height": 2000,
+      "source_sha256": "dad5f30cafc1e5fd2e389a0b39bcb14f1852f6649cd2025cd3a5af53af8911b2",
+      "served_sha256": "c42f1e166bed674086fbe9272b3c46c341688ed2e44bf757197bb97c72f2c1ff",
+      "rgba_sha256": "8f1294d15d00ca35cd4c5cfa0c6ffbd9efb97480258e87f5cf1a8041cf6820f8"
+    },
+    {
+      "source": "/assets/hardware/l20/task-paper-crane.png",
+      "served": "/assets/hardware/l20/task-paper-crane.webp",
+      "source_bytes": 5969142,
+      "served_bytes": 1232640,
+      "width": 2000,
+      "height": 2000,
+      "source_sha256": "c21b57258ab491610e50ca8751129302c48869dd0ef551d54bc0460a8a340efc",
+      "served_sha256": "acc5dfed9f5e6dce8f3d90cfd40b97b9be32690dc422a075e4c9395b2517d5f5",
+      "rgba_sha256": "c2dd55c83c1f3ca03f9fa770c57a2df535cb252409b39c8b2216f6af9210fa0f"
+    },
+    {
+      "source": "/assets/hardware/l6/product-back.png",
+      "served": "/assets/hardware/l6/product-back.webp",
+      "source_bytes": 7566893,
+      "served_bytes": 1378656,
+      "width": 2000,
+      "height": 2000,
+      "source_sha256": "ec747f9f826447ccc3e1b4c32271ad87b03c8ee5572dbf11dadc8d2f4be5573d",
+      "served_sha256": "36c66a85813fbf362f20a722902bdc4b37ba8c189c8d4a34a89965fa2f084bb8",
+      "rgba_sha256": "79793c582bd5e298c75b1e49cf58d4f4ccfc3dbfebfb01ae4679b3bdec4e09b6"
+    },
+    {
+      "source": "/assets/hardware/l6/tool-pliers.png",
+      "served": "/assets/hardware/l6/tool-pliers.webp",
+      "source_bytes": 5305935,
+      "served_bytes": 894232,
+      "width": 1500,
+      "height": 1500,
+      "source_sha256": "d8388ae8589c8e9143315c62c89e73a73e14ca451b62c93b6b5ad872634a3d1f",
+      "served_sha256": "0c32b28f4254510090b056bd786dcad47909f0e2611dfbc55ff2c45437df2d59",
+      "rgba_sha256": "da203f05cc0a403f13a95b2407854c7dd1fcfb11e5395628d48a66d305380d76"
+    },
+    {
+      "source": "/assets/hardware/o6/product-back.png",
+      "served": "/assets/hardware/o6/product-back.webp",
+      "source_bytes": 1384166,
+      "served_bytes": 864896,
+      "width": 1200,
+      "height": 1200,
+      "source_sha256": "f57ad5ab48f27d32a3deb200f2fcb30036347899ad003a2f72599006f3a3cad7",
+      "served_sha256": "9ad471582026ca53515f694c7d5002d063f29338a9bf9813d07cb5b9c286adf2",
+      "rgba_sha256": "daf36ef182e469f477277211d9430d02acd93d71063ab7e2afd5f11baf44e359"
+    },
+    {
+      "source": "/assets/hardware/o6/product-palm.png",
+      "served": "/assets/hardware/o6/product-palm.webp",
+      "source_bytes": 2808810,
+      "served_bytes": 500202,
+      "width": 1200,
+      "height": 1200,
+      "source_sha256": "27b28ac7ba89a1d0be9526a1a6a97c35c79193256b9db6ca3834391868e04d56",
+      "served_sha256": "daf836b8b25b3accefc960dfd681159522ea75bbd8b6c250eda0a82d1f7a7dc1",
+      "rgba_sha256": "5db41cb278a8c50a8fe78d04a8fa3d52e614d13336b8f55b67d2630b417732ea"
+    },
+    {
+      "source": "/assets/hardware/o6/tool-screwdriver.png",
+      "served": "/assets/hardware/o6/tool-screwdriver.webp",
+      "source_bytes": 4731807,
+      "served_bytes": 1128122,
+      "width": 1300,
+      "height": 1300,
+      "source_sha256": "ec73f6a590abcd7c8d19b7680f6cae183f193b2b93bcc4991a11d3b6563cde6d",
+      "served_sha256": "8b4e685d4390efff732d44f1c3d021c42598ba1ca1a62edc312fb817688dafad",
+      "rgba_sha256": "474c9eaf8b25ef32d73c6a8a409df25e91b66151c01bc85228f4aeeb43e28d4c"
+    },
+    {
+      "source": "/assets/hardware/p7/product-silver-3.png",
+      "served": "/assets/hardware/p7/product-silver-3.webp",
+      "source_bytes": 2003150,
+      "served_bytes": 312176,
+      "width": 1300,
+      "height": 1300,
+      "source_sha256": "c2cc92368cddfcb2775e08bcd43ad346f060704aea0edb18873e32b36db01922",
+      "served_sha256": "26c08cc9f1a146d68cf73fece4a8d9623cadd04f98e5eb892f2f9dfb804d63ea",
+      "rgba_sha256": "82c594d1dfe1dcf43364f7efb531494de4e806e5a576bf8b511619874efbed8c"
+    },
+    {
+      "source": "/assets/hardware/p7/product-silver-with-hand.png",
+      "served": "/assets/hardware/p7/product-silver-with-hand.webp",
+      "source_bytes": 2608605,
+      "served_bytes": 468796,
+      "width": 1300,
+      "height": 1300,
+      "source_sha256": "dfc834d025cb64a89fa5411e07a9d767b5a410017bda0b139c684ec788cfda10",
+      "served_sha256": "1ef18b129fa29da342d4ba5a200dc475f84a1c28e1f9867fadbe4e9c2a15e995",
+      "rgba_sha256": "d2688aa2db69db9c3f3decfebab4b4bda93ac002d86fafb46fd603e8709e277a"
+    },
+    {
+      "source": "/assets/products/p7.png",
+      "served": "/assets/hardware/p7/hero.webp",
+      "source_bytes": 2106776,
+      "served_bytes": 350802,
+      "width": 1300,
+      "height": 1300,
+      "source_sha256": "4d22cb4e6bf33b73cf2aeb73c2400df9e9b89e963a15e75f930d6c47bba9e0dc",
+      "served_sha256": "4a1d15465387dac4b585c7b0f39d9c98d9ba40cf3780f334ccc4dab3d53bca15",
+      "rgba_sha256": "fdd611002ef9055470fe1a70665bc19bdde68b7dad54d67060fd4e7300c1400c"
+    }
+  ]
+}

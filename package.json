@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "python3 -m http.server 3000 --directory public"
+    "dev": "python scripts/preview_site.py",
+    "build": "python scripts/build_site.py",
+    "check": "python scripts/validate_site.py",
+    "verify:build": "node scripts/check_build.mjs"
   }
 }

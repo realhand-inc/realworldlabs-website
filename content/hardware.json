@@ -1,0 +1,534 @@
+[
+  {
+    "slug": "l6",
+    "name": "L6",
+    "category": "Dexterous Hand",
+    "subtitle": "Compact by design. Precise in motion.",
+    "description": "A compact, power-efficient dexterous hand with 6 active and 5 passive degrees of freedom, designed for embedded systems and scaled deployments.",
+    "hero": "/assets/hardware/l6/hero.webp",
+    "heroAlt": "RealHand L6 dexterous robotic hand",
+    "specs": [
+      {
+        "label": "Model",
+        "value": "Realhand L6"
+      },
+      {
+        "label": "Weight",
+        "value": "618.5 g"
+      },
+      {
+        "label": "Total Degrees of Freedom",
+        "value": "11 (6 active + 5 passive)"
+      },
+      {
+        "label": "Active Joints",
+        "value": "6"
+      },
+      {
+        "label": "Passive Joints",
+        "value": "5"
+      },
+      {
+        "label": "Repeat Positioning Accuracy",
+        "value": "+/-0.2 mm"
+      },
+      {
+        "label": "Opening/Closing Response Time",
+        "value": "0.35 seconds"
+      },
+      {
+        "label": "Joint Movement Speed",
+        "value": "180 deg/s (active joints)"
+      },
+      {
+        "label": "Maximum Grip Force",
+        "value": "TBD (contact for specifications)"
+      },
+      {
+        "label": "Power Supply",
+        "value": "24V DC"
+      },
+      {
+        "label": "Communication Protocol",
+        "value": "CAN 2.0"
+      },
+      {
+        "label": "Operating Temperature",
+        "value": "0 C ~ 40 C"
+      },
+      {
+        "label": "Storage Temperature",
+        "value": "-20 C ~ 60 C"
+      },
+      {
+        "label": "Wrist Flange",
+        "value": "ISO 9409-1-50-4-M6 standard"
+      },
+      {
+        "label": "Middle fingertip to palm base",
+        "value": "183 mm"
+      },
+      {
+        "label": "Maximum palm width",
+        "value": "106 mm"
+      },
+      {
+        "label": "Thumb tip to palm base",
+        "value": "105 mm"
+      },
+      {
+        "label": "Wrist height",
+        "value": "76 mm"
+      },
+      {
+        "label": "Wrist diameter",
+        "value": "64 mm"
+      }
+    ],
+    "features": [
+      {
+        "title": "Compact integration",
+        "description": "A 618.5 g hand with a 24 V DC power supply, CAN 2.0 communication, and an ISO 9409-1-50-4-M6 wrist flange."
+      },
+      {
+        "title": "Repeatable motion",
+        "description": "Active joints operate at 180 deg/s, with a 0.35-second opening/closing response and +/-0.2 mm repeat positioning accuracy."
+      },
+      {
+        "title": "Mechanically coupled grasping",
+        "description": "Passive joints follow their corresponding active joints through mechanical coupling, supporting natural grasping motions."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "/assets/hardware/l6/L6.webp",
+        "alt": "RealHand L6 main product view",
+        "caption": "L6 / Compact dexterous hardware"
+      },
+      {
+        "src": "/assets/hardware/l6/product-back.webp",
+        "alt": "RealHand L6 back view",
+        "caption": "Back view"
+      },
+      {
+        "src": "/assets/hardware/l6/tool-pliers.webp",
+        "alt": "RealHand L6 holding pliers",
+        "caption": "Tool handling"
+      }
+    ],
+    "sourceUrl": "https://www.realhand.com/l6"
+  },
+  {
+    "slug": "o6",
+    "name": "O6",
+    "category": "Dexterous Hand",
+    "subtitle": "High-precision bionic manipulation.",
+    "description": "A high-precision bionic hand with 6 active and 5 passive joints, combining strong gripping, precise control, and a compact, lightweight build for logistics, assembly, and irregular-object handling.",
+    "hero": "/assets/hardware/o6/hero.webp",
+    "heroAlt": "RealHand O6 dexterous robotic hand",
+    "specs": [
+      {
+        "label": "Degrees of Freedom",
+        "value": "11 (6 Active + 5 Passive DoF)"
+      },
+      {
+        "label": "Transmission Method",
+        "value": "Linkage Drive"
+      },
+      {
+        "label": "Drive Method",
+        "value": "Self-Developed Joint Module"
+      },
+      {
+        "label": "Control Interface",
+        "value": "CAN/RS485"
+      },
+      {
+        "label": "Weight",
+        "value": "370 g"
+      },
+      {
+        "label": "Max Payload",
+        "value": "50 kg"
+      },
+      {
+        "label": "Working Voltage",
+        "value": "DC24V +/-10%"
+      },
+      {
+        "label": "Static Current",
+        "value": "0.1 A"
+      },
+      {
+        "label": "Average No-load Operating Current",
+        "value": "0.4 A"
+      },
+      {
+        "label": "Max Current",
+        "value": "3 A"
+      },
+      {
+        "label": "Repeatability",
+        "value": "<= 0.20 mm"
+      },
+      {
+        "label": "Max Thumb Force",
+        "value": "28 N"
+      },
+      {
+        "label": "Max Four Finger Tip Force",
+        "value": "33 N"
+      },
+      {
+        "label": "Four Finger Flex Angle",
+        "value": "1.61 rad (92.59 deg)"
+      },
+      {
+        "label": "Thumb Lateral Swing Speed",
+        "value": "1.36 rad/s (78.10 deg/s)"
+      },
+      {
+        "label": "Thumb Flex Speed",
+        "value": "2.60 rad/s (149.22 deg/s)"
+      }
+    ],
+    "features": [
+      {
+        "title": "Strong gripping",
+        "description": "A high-torque servo and worm gear drive deliver efficient, rigid gripping."
+      },
+      {
+        "title": "Precise control",
+        "description": "Rigid-linkage transmission and a hybrid force-position algorithm achieve +/-0.2 mm repeat accuracy."
+      },
+      {
+        "title": "Lightweight construction",
+        "description": "A 370 g design with an integrated drive-control module and dimensions matched to the human hand."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "/assets/hardware/o6/product-palm.webp",
+        "alt": "RealHand O6 palm view",
+        "caption": "Palm view"
+      },
+      {
+        "src": "/assets/hardware/o6/product-back.webp",
+        "alt": "RealHand O6 back view",
+        "caption": "Back view"
+      },
+      {
+        "src": "/assets/hardware/o6/tool-screwdriver.webp",
+        "alt": "RealHand O6 holding a screwdriver",
+        "caption": "Tool handling"
+      }
+    ],
+    "sourceUrl": "https://www.realhand.com/o6"
+  },
+  {
+    "slug": "l20",
+    "name": "L20",
+    "category": "Dexterous Hand",
+    "subtitle": "More articulation. Stronger grasping.",
+    "description": "A high-DOF dexterous hand with 16 active and 5 passive joints, 100 N five-finger grip force, and tactile sensing options for advanced manipulation.",
+    "hero": "/assets/hardware/l20/hero.webp",
+    "heroAlt": "RealHand L20 dexterous robotic hand",
+    "specs": [
+      {
+        "label": "Degrees of Freedom",
+        "value": "16 DoF, 21 joints (16 active + 5 passive)"
+      },
+      {
+        "label": "Four-finger Abduction",
+        "value": "+/-10 deg side swing"
+      },
+      {
+        "label": "Five-finger Grip Force",
+        "value": "100 N"
+      },
+      {
+        "label": "Fingertip Force (Thumb / Four Fingers)",
+        "value": "18 N / 20 N"
+      },
+      {
+        "label": "Weight",
+        "value": "1100 g"
+      },
+      {
+        "label": "Maximum Load",
+        "value": "10 kg"
+      },
+      {
+        "label": "Opening / Closing Time",
+        "value": "1.2 s"
+      },
+      {
+        "label": "Repeat Positioning Accuracy",
+        "value": "+/-0.2 mm"
+      },
+      {
+        "label": "Control Interface",
+        "value": "CAN / RS485, 600 kHz"
+      },
+      {
+        "label": "Operating Voltage",
+        "value": "24 V +/-10%"
+      },
+      {
+        "label": "Tactile Sensing",
+        "value": "6x12 pressure array; capacitive 3D force, cameras, and visual-tactile optional"
+      }
+    ],
+    "features": [
+      {
+        "title": "Articulated manipulation",
+        "description": "21 joints combine 16 active and 5 passive joints. Four-finger abduction provides +/-10 degrees of side swing."
+      },
+      {
+        "title": "Force and repeatability",
+        "description": "100 N five-finger grip force, a 10 kg maximum load, and +/-0.2 mm repeat positioning accuracy."
+      },
+      {
+        "title": "Tactile sensing options",
+        "description": "A 6x12 pressure array, with optional capacitive 3D force, camera, and visual-tactile sensing."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "/assets/hardware/l20/L20.webp",
+        "alt": "RealHand L20 main product view",
+        "caption": "L20 / Articulated dexterity"
+      },
+      {
+        "src": "/assets/hardware/l20/product-back.webp",
+        "alt": "RealHand L20 back view",
+        "caption": "Back view"
+      },
+      {
+        "src": "/assets/hardware/l20/task-paper-crane.webp",
+        "alt": "RealHand L20 holding a paper crane",
+        "caption": "Delicate-object manipulation"
+      }
+    ],
+    "sourceUrl": "https://www.realhand.com/l20"
+  },
+  {
+    "slug": "l30",
+    "name": "L30",
+    "category": "Dexterous Hand",
+    "subtitle": "Tendon-driven dexterity.",
+    "description": "A tendon-driven dexterous hand with 17 active and 4 passive degrees of freedom, built for responsive manipulation and precise control.",
+    "hero": "/assets/hardware/l30/hero.webp",
+    "heroAlt": "RealHand L30 dexterous robotic hand",
+    "specs": [
+      {
+        "label": "Degrees of Freedom",
+        "value": "17 active + 4 passive"
+      },
+      {
+        "label": "Transmission",
+        "value": "Tendon drive"
+      },
+      {
+        "label": "Control Interface",
+        "value": "CAN FD"
+      },
+      {
+        "label": "Communication Frequency",
+        "value": "900 Hz"
+      },
+      {
+        "label": "Weight",
+        "value": "Approx. 1,200 g"
+      },
+      {
+        "label": "Maximum Load",
+        "value": "15 kg"
+      },
+      {
+        "label": "Operating Voltage",
+        "value": "24 V DC ±10%"
+      },
+      {
+        "label": "Static Current",
+        "value": "0.16 A"
+      },
+      {
+        "label": "Average No-load Current",
+        "value": "0.62 A"
+      },
+      {
+        "label": "Maximum Current",
+        "value": "2.7 A"
+      },
+      {
+        "label": "Repeat Positioning Accuracy",
+        "value": "±0.2 mm"
+      },
+      {
+        "label": "Opening / Closing Time",
+        "value": "0.2 s"
+      },
+      {
+        "label": "Maximum Thumb Fingertip Force",
+        "value": "6.5 N"
+      },
+      {
+        "label": "Maximum Four-finger Fingertip Force",
+        "value": "9 N"
+      },
+      {
+        "label": "Maximum Five-finger Grip Force",
+        "value": "39 N"
+      },
+      {
+        "label": "Thumb Lateral Rotation Range",
+        "value": "0.61 rad (35°)"
+      },
+      {
+        "label": "Four-finger Flexion Angle",
+        "value": "1.52 rad (87.2°)"
+      },
+      {
+        "label": "Thumb Lateral Swing Speed",
+        "value": "4.92 rad/s (282.4°/s)"
+      },
+      {
+        "label": "Four-finger Flexion Speed",
+        "value": "6.343 rad/s (363.6°/s)"
+      },
+      {
+        "label": "Thumb Flexion Speed",
+        "value": "7.85 rad/s (450.35°/s)"
+      },
+      {
+        "label": "Tactile Sensing",
+        "value": "Fingertip tactile sensor array"
+      }
+    ],
+    "features": [
+      {
+        "title": "Tendon-driven articulation",
+        "description": "17 active and 4 passive degrees of freedom provide articulated control through a tendon-drive transmission."
+      },
+      {
+        "title": "Responsive motion",
+        "description": "A 0.2-second opening/closing time and CAN FD communication at 900 Hz support responsive operation."
+      },
+      {
+        "title": "Precise, tactile manipulation",
+        "description": "+/-0.2 mm repeat positioning accuracy and a fingertip tactile sensor array support precise interaction."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "/assets/hardware/l30/product-silver-back.webp",
+        "alt": "RealHand L30 silver back view",
+        "caption": "Silver / Back view"
+      },
+      {
+        "src": "/assets/hardware/l30/product-silver-side.webp",
+        "alt": "RealHand L30 silver side view",
+        "caption": "Silver / Side view"
+      },
+      {
+        "src": "/assets/hardware/l30/product-silver-ok.webp",
+        "alt": "RealHand L30 silver dexterous pose",
+        "caption": "Silver / Dexterous pose"
+      },
+      {
+        "src": "/assets/hardware/l30/product-black-palm.webp",
+        "alt": "RealHand L30 black palm view",
+        "caption": "Black / Palm view"
+      },
+      {
+        "src": "/assets/hardware/l30/product-black-back.webp",
+        "alt": "RealHand L30 black back view",
+        "caption": "Black / Back view"
+      },
+      {
+        "src": "/assets/hardware/l30/tool-silver-screw.webp",
+        "alt": "RealHand L30 silver hand holding a screw",
+        "caption": "Fine-object manipulation"
+      },
+      {
+        "src": "/assets/hardware/l30/tool-black-pliers.webp",
+        "alt": "RealHand L30 black hand holding pliers",
+        "caption": "Tool handling"
+      },
+      {
+        "src": "/assets/hardware/l30/tool-black-lipstick.webp",
+        "alt": "RealHand L30 black hand holding lipstick",
+        "caption": "Everyday-object interaction"
+      }
+    ],
+    "sourceUrl": "https://www.realhand.com/l30"
+  },
+  {
+    "slug": "p7",
+    "name": "P7",
+    "category": "Robotic Arm",
+    "subtitle": "Seven axes. Connected manipulation.",
+    "description": "A 7-axis robotic arm for arm-hand systems, SDK-controlled motion, and repeatable manipulation demonstrations.",
+    "hero": "/assets/hardware/p7/hero.webp",
+    "heroAlt": "RealHand P7 robotic arm",
+    "specs": [
+      {
+        "label": "Product Class",
+        "value": "7-axis robotic arm"
+      },
+      {
+        "label": "Degrees of Freedom",
+        "value": "7 DoF"
+      },
+      {
+        "label": "Rated Load",
+        "value": "3 kg"
+      },
+      {
+        "label": "Power",
+        "value": "48 V"
+      },
+      {
+        "label": "Communication",
+        "value": "CAN / RS485"
+      },
+      {
+        "label": "SDK Support",
+        "value": "P7 arm APIs, state, motion, and kinematics"
+      }
+    ],
+    "features": [
+      {
+        "title": "7-axis motion",
+        "description": "Seven degrees of freedom with a 3 kg rated load for arm-hand manipulation systems."
+      },
+      {
+        "title": "SDK control",
+        "description": "P7 arm APIs cover state, motion, and kinematics for programmatic integration."
+      },
+      {
+        "title": "Arm-hand systems",
+        "description": "A 48 V platform with CAN / RS485 communication for connected arm-hand systems."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "/assets/hardware/p7/product-silver-3.webp",
+        "alt": "RealHand P7 silver arm alternate view",
+        "caption": "P7 / Alternate view"
+      },
+      {
+        "src": "/assets/hardware/p7/product-silver-with-hand.webp",
+        "alt": "RealHand P7 with a RealHand end effector",
+        "caption": "Arm-hand system"
+      },
+      {
+        "src": "/assets/hardware/p7/poster-silver.jpg",
+        "alt": "RealHand P7 silver product poster",
+        "caption": "Product overview"
+      }
+    ],
+    "sourceUrl": "https://www.realhand.com/p7"
+  }
+]

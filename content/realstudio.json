@@ -1,0 +1,25 @@
+{
+  "name": "RealStudio",
+  "category": "Embodied AI platform",
+  "tagline": "One platform from robot control to on-site deployment.",
+  "description": "Robot control, teleoperation, data collection, annotation and cleaning, VLA and RL post-training, motion recording, and multi-robot monitoring and remote teleoperation.",
+  "capabilities": [
+    {"key":"control","label":"Control","number":"01","heading":"Connect and teleoperate your robots.","description":"Connect robots, view live status and sensor data, and teleoperate with data gloves or vision-based hand tracking.","availability":"Available in every edition.","features":["Robot connection and live status","Manual robot control","Real-time sensor visualization","Data-glove and vision-based teleoperation"]},
+    {"key":"collect","label":"Collect","number":"02","heading":"Collect and manage robot data.","description":"Record synchronized vision, language, action, depth, IMU, and tactile data. Review episodes and manage dataset versions, imports, and exports.","availability":"Included in Data and Enterprise.","features":["Time-synchronized multimodal capture","Egocentric data capture","Episode playback and review","Dataset management, versioning, import and export"]},
+    {"key":"train","label":"Train","number":"03","heading":"Post-train VLA and RL policies.","description":"Annotate and clean data, post-train π0.5 and Isaac GR00T N1.7, and train humanoid or quadruped locomotion policies.","availability":"Included in Training and Enterprise.","features":["Data annotation, cleaning and quality checks","VLA post-training: π0.5 and Isaac GR00T N1.7","RL locomotion training: humanoid and quadruped","Model evaluation and versioning"]},
+    {"key":"deploy","label":"Deploy","number":"04","heading":"Run multiple robots on site.","description":"Monitor and teleoperate robots many-to-many over LAN. Use the Runtime SDK for policy-driven control, or record actions and select them at runtime.","availability":"Included in Deployment and Enterprise.","features":["Many-to-many monitoring and remote teleoperation over LAN","Runtime SDK for policy-driven control","Motion recording","Runtime action selection and playback"]}
+  ],
+  "editions": [
+    {"name":"Free","stage":"01 / Control","description":"Control and teleoperate your robots.","features":["Robot connection and live status","Manual control and sensor visualization","Glove and vision-based teleoperation"]},
+    {"name":"Data","stage":"02 / Collect","description":"Collect and manage robot data.","features":["Synchronized multimodal recording","Egocentric capture and episode review","Dataset management, versioning, import and export"]},
+    {"name":"Training","stage":"03 / Train","description":"Post-train VLA and RL policies.","features":["Data annotation and cleaning","VLA: π0.5 and Isaac GR00T N1.7","RL locomotion: humanoid and quadruped","Model evaluation and versioning"]},
+    {"name":"Deployment","stage":"04 / Deploy","description":"Run multiple robots on site.","features":["Many-to-many monitoring and teleoperation over LAN","Runtime SDK for policy-driven control","Motion recording and runtime playback"]}
+  ],
+  "matrix": [
+    {"key":"free","title":"Robot control & teleoperation","rows":["Robot connection & live status","Manual robot control","Real-time sensor visualization","Teleoperation via data gloves","Teleoperation via vision-based hand tracking"]},
+    {"key":"data","title":"Data collection & management","rows":["Teleoperation with data recording","Vision, language & action capture","Depth, IMU & tactile recording","Time-synchronized multimodal capture","Egocentric (first-person) data capture","Episode playback & review","Dataset management & versioning","Data import & export"]},
+    {"key":"training","title":"Annotation & post-training","rows":["Data annotation","Data cleaning & quality checks","VLA post-training: π0.5","VLA post-training: Isaac GR00T N1.7","RL locomotion training: humanoid","RL locomotion training: quadruped","Model evaluation & versioning"]},
+    {"key":"deployment","title":"Multi-robot deployment","rows":["Many-to-many monitoring over LAN","Many-to-many remote teleoperation over LAN","Runtime SDK for policy-driven control","Motion recorder: pre-record robot actions","Runtime action selection & playback"]}
+  ],
+  "editionNote":"Data, Training, and Deployment each include every Free feature. Enterprise includes every feature listed."
+}
