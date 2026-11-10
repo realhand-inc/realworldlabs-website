@@ -99,6 +99,35 @@
     });
   }
 
+  const comparison = document.querySelector('#feature-matrix');
+  const editionSelect = comparison?.querySelector('#matrix-edition');
+  if (editionSelect) {
+    const groups = [...comparison.querySelectorAll('[data-edition-group]')];
+    const selectEdition = () => {
+      const option = editionSelect.selectedOptions[0];
+      let includedCount = 0;
+      let totalCount = 0;
+      groups.forEach(group => {
+        const included = group.dataset.editionGroup === 'free' ||
+          group.dataset.editionGroup === editionSelect.value ||
+          editionSelect.value === 'enterprise';
+        const count = group.querySelectorAll('li').length;
+        totalCount += count;
+        if (included) includedCount += count;
+        group.classList.toggle('is-included', included);
+        group.querySelector('.matrix-group-state').textContent = included ? 'Included' : 'Not included';
+        group.open = included;
+      });
+      comparison.querySelector('.matrix-edition-name').textContent = option.textContent;
+      comparison.querySelector('.matrix-edition-description').textContent = option.dataset.description;
+      comparison.querySelector('.matrix-edition-count').textContent =
+        includedCount + ' of ' + totalCount + ' features included.';
+    };
+    editionSelect.addEventListener('change', selectEdition);
+    selectEdition();
+    comparison.classList.add('has-edition-view');
+  }
+
   const viewer = document.querySelector('#image-viewer');
   document.querySelectorAll('[data-lightbox]').forEach(button => {
     button.addEventListener('click', () => {

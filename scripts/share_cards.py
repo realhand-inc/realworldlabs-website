@@ -10,8 +10,8 @@ def card_data():
     hardware=json.loads((ROOT/'content/hardware.json').read_text(encoding='utf-8'))
     blog=json.loads((ROOT/'content/blog-latest.json').read_text(encoding='utf-8'))
     data=[
-        dict(key='home',path='/',title='Intelligence.\nMade physical.',eyebrow='The total solution',summary='Core models, software, and robotics.\nOne connected product ecosystem.',kind='ecosystem',alt='Realworld Labs: RealBrain, RealStudio, RealHand, RealArm, and RealBot in one product ecosystem.'),
-        dict(key='products',path='/products/',title='One ecosystem.\nFive product families.',eyebrow='Our products',summary='Explore RealHand, RealArm, RealStudio,\nRealBot, and RealBrain.',kind='ecosystem',alt='The five Realworld Labs product families, from core models and software to robotic hardware.')
+        dict(key='home',path='/',title='Intelligence.\nMade physical.',eyebrow='The total solution',summary='AI models, software, and robotics.\nOne connected product ecosystem.',kind='ecosystem',alt='Realworld Labs: RealBrain, RealStudio, RealHand, RealArm, and RealBot in one product ecosystem.'),
+        dict(key='products',path='/products/',title='One ecosystem.\nFive product families.',eyebrow='Our products',summary='Explore RealHand, RealArm, RealStudio,\nRealBot, and RealBrain.',kind='ecosystem',alt='The five Realworld Labs product families, from AI models and software to robotic hardware.')
     ]
     for p in hardware:
         family='RealArm' if p['slug']=='p7' else 'RealHand'
@@ -19,14 +19,14 @@ def card_data():
     data.extend([
         dict(key='realstudio',path='/products/realstudio/',title='RealStudio',eyebrow='Embodied AI platform',summary='One platform from robot control\nto on-site deployment.',kind='realstudio',alt='RealStudio: Control, Collect, Train, and Deploy, with the original blue logo and abstract software workflow.'),
         dict(key='realbot',path='/products/realbot/',title='RealBot',eyebrow='Robot series',summary='Humanoid and quadruped.\nOne robot family.',kind='realbot',status='Coming soon',alt='RealBot upcoming robot series: humanoid and quadruped robots.'),
-        dict(key='realbrain',path='/products/realbrain/',title='RealBrain',eyebrow='Core model',summary='The intelligence\nat our core.',kind='realbrain',status='Coming soon',alt='RealBrain, the forthcoming Realworld Labs core model, with its blue brand logo.'),
+        dict(key='realbrain',path='/products/realbrain/',title='RealBrain',eyebrow='AI model',summary='Our upcoming\nAI model.',kind='realbrain',status='Coming soon',alt='RealBrain, the forthcoming Realworld Labs AI model, with its blue brand logo.'),
         dict(key='blogs',path='/blogs/',title='Ideas in motion.',eyebrow='Research / Engineering / Stories',summary='Explore research and progress\nacross our robotics ecosystem.',kind='blog',image=blog['hero'],alt='Realworld Labs Blogs: robotics research, engineering, and stories.'),
         dict(key='blog-'+blog['slug'],path='/blogs/'+blog['slug']+'/',title='Agent as Policy\non RoboDojo',eyebrow='Research / '+blog['dateLabel'],summary='42 Tasks.\nOne General-Purpose Agent.',kind='blog',image=blog['hero'],alt=blog['title']+' — originally published by '+blog['author']+'.')
     ])
     return data
 
 def ecosystem_art():
-    nodes=[('RealBrain','CORE MODEL',28,40),('RealStudio','PLATFORM',245,40),('RealHand','DEXTEROUS HANDS',20,254),('RealArm','ROBOTIC ARMS',253,254),('RealBot','ROBOT SERIES',135,326)]
+    nodes=[('RealBrain','AI MODEL',28,40),('RealStudio','PLATFORM',245,40),('RealHand','DEXTEROUS HANDS',20,254),('RealArm','ROBOTIC ARMS',253,254),('RealBot','ROBOT SERIES',135,326)]
     lines=''.join(f'<path d="M220 190 Q220 {y+25} {x+65} {y+25}"/>' for name,category,x,y in nodes)
     boxes=''.join(f'<g transform="translate({x} {y})"><rect width="130" height="58" rx="12" fill="#f8fbff" stroke="#bccfe7"/><text x="14" y="18" font-size="6.8" letter-spacing=".9" fill="#748bac">{category}</text><text x="14" y="40" font-size="18" fill="#29466c">{name}</text></g>' for name,category,x,y in nodes)
     return '<svg class="share-map" viewBox="0 0 440 400" aria-hidden="true"><g fill="none" stroke="#b7cce6" stroke-width="1">'+lines+'<ellipse cx="220" cy="215" rx="185" ry="70" opacity=".35"/><ellipse cx="220" cy="215" rx="145" ry="50" opacity=".25"/><circle cx="220" cy="190" r="65" stroke-dasharray="2 7" opacity=".65"/></g><circle cx="220" cy="190" r="55" fill="#edf4fe" stroke="#b2cceb"/><g text-anchor="middle" font-family="Space Grotesk, sans-serif" fill="#304e77"><text x="220" y="184" font-size="14" letter-spacing="1.5">TOTAL</text><text x="220" y="204" font-size="14" letter-spacing="1.5">SOLUTION</text></g><g font-family="Space Grotesk, sans-serif">'+boxes+'</g></svg>'
