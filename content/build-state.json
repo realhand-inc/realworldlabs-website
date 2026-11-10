@@ -1,7 +1,7 @@
 {
   "version": 1,
   "inputs": {
-    "scripts/build_site.py": "0eb2bca26061074377d533075968c34c69168da452fa6c21a806f3925d65d2f6",
+    "scripts/build_site.py": "8106a443e2bcb204fcd885b7cd40cc555dd252f2ca36d99e9c782f956c4c981e",
     "scripts/site_experience.py": "fe27106a11d4aa497f200aa06559f9af5af0837f24d46382278d2c9d06e4f2bd",
     "scripts/site_metadata.py": "963e4451830a481f121255a290249b838505b422f9fb7965141ec82ffeb64518",
     "scripts/share_cards.py": "7506a483b05d4ce8560644c04b577d3254866d5afb24df42cb812f09a2eee9d4",
@@ -78,7 +78,7 @@
     "public/products/p7/index.html": "4ed702a779451c10539e1cdf0ff4e662c4f4d9f292aa3533cbf97449af27060e",
     "public/products/realbot/index.html": "b1eb17e97af147606d22b498c28c4f688ac8b15546e5a05d7300755e98ea507e",
     "public/products/realbrain/index.html": "66a5e3249a570d0ddf9a4d204b3fc6e9f6cb7bbc28a9a2396f47566dc639e33b",
-    "public/products/realstudio/index.html": "7023b8039aa2d3dfc5a05e879675c52898718fc1518d7ca051b96ae55ce14ee9",
+    "public/products/realstudio/index.html": "179e11246d6f92d6c6659e14fdf83c359a0fd77d5adb7d191c0f4f272ed81a31",
     "public/robots.txt": "7fa068f9aa772226d1da781fb6fe98008caeae5c7f2a3b41ba563feff5dd91dc",
     "public/site.webmanifest": "23cb901939c914116715b9ccf612b85165d9b026cec6b985d4a5bc274d95b2ab",
     "public/sitemap.xml": "46e84a1ae7445649e545bfecb3ede3ca63c9e4c555b10509057005ecc520b5ce"

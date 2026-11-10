@@ -24,6 +24,8 @@ The generated HTML is tracked, so deployment does not require a Python runtime.
 
 All contact links use sales@realworldlabs.com.
 
+Supplied RealStudio PDFs are content references only. Do not copy them into public/ or link them as downloads; present the product information as native webpage content.
+
 ## Launch validation
 
 `npm run build` generates all 13 HTML pages, 12 canonical sitemap entries, robots.txt, the browser manifest, structured metadata, and fingerprinted CSS/JS. It validates the result before recording `content/build-state.json`.
