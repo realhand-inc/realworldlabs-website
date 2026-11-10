@@ -147,7 +147,9 @@ def record_build_state():
         'scripts/share_cards.py','scripts/render_share_cards.py','scripts/validate_site.py','scripts/check_build.mjs','scripts/preview_site.py','scripts/optimize_images.py',
         'content/hardware.json','content/realstudio.json','content/blog-latest.json','content/image-optimizations.json',
         'public/pages.css','public/pages.js','public/ecosystem.css','public/ecosystem.js',
-        'package.json','vercel.json','.gitattributes'
+        # Vercel may rewrite vercel.json before the build command runs.
+        # validate_site checks its routing rules; it is not a rendered-page input.
+        'package.json','.gitattributes'
     ]
     image_rows=json.loads((ROOT/'content/image-optimizations.json').read_text(encoding='utf-8'))['images']
     inputs += ['public'+row['source'] for row in image_rows]

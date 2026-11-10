@@ -3,7 +3,7 @@
   "inputs": {
     "scripts/build_site.py": "0eb2bca26061074377d533075968c34c69168da452fa6c21a806f3925d65d2f6",
     "scripts/site_experience.py": "fe27106a11d4aa497f200aa06559f9af5af0837f24d46382278d2c9d06e4f2bd",
-    "scripts/site_metadata.py": "0e97f8cd816cb716b0be493e5a387874d01d1851d450dfeacf781fff9fa95b28",
+    "scripts/site_metadata.py": "963e4451830a481f121255a290249b838505b422f9fb7965141ec82ffeb64518",
     "scripts/share_cards.py": "7506a483b05d4ce8560644c04b577d3254866d5afb24df42cb812f09a2eee9d4",
     "scripts/render_share_cards.py": "6463a5406aa692fbe0d77cbd6fa2bc35c2f974a5116e3b0b712c2a2d170e909c",
     "scripts/validate_site.py": "bc822fb38ee2ac41263f5f9a08123749d555fb67c66a08c46bdecf0f9e2ae10b",
@@ -19,7 +19,6 @@
     "public/ecosystem.css": "e6a436aec3e89b0b955c1ecadfc220273eced5a94ae510ddc3a29a5683ae68c5",
     "public/ecosystem.js": "f8fb0e7258249f8f810fa290a99d0a5a1f588a808b7d4618480bd6381ced81f2",
     "package.json": "28d652f9863eaf2b3a7ad3230a44baa9f5614c2cf6d71c46b02629d383f4fda2",
-    "vercel.json": "4809b00b344c7b80e8127b0b3bf62aba9b6ccaa0d0cf7624ec3aaba52528fa4b",
     ".gitattributes": "2caa4dc6df7d763438cba4a82465202b6cc872691b1a7f12f7756941bef01eb2",
     "public/assets/hardware/p7/hero.png": "4d22cb4e6bf33b73cf2aeb73c2400df9e9b89e963a15e75f930d6c47bba9e0dc",
     "public/assets/hardware/l20/product-back.png": "dad5f30cafc1e5fd2e389a0b39bcb14f1852f6649cd2025cd3a5af53af8911b2",

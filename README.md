@@ -29,7 +29,8 @@ All contact links use sales@realworldlabs.com.
 `npm run build` generates all 13 HTML pages, 12 canonical sitemap entries, robots.txt, the browser manifest, structured metadata, and fingerprinted CSS/JS. It validates the result before recording `content/build-state.json`.
 
 - `npm run check`: validate metadata, share images, internal links and anchors, optimized image records, and routing settings.
-- `npm run verify:build`: verify source and generated-file hashes using Node only. Vercel runs this command before deployment; stale or missing generated files fail deployment.
+- `npm run verify:build`: verify source and generated-file hashes using Node only. Vercel runs this command before deployment; stale or missing generated files fail deployment. The platform-processed `vercel.json` is excluded from byte hashing because Vercel can rewrite it before this step; `npm run build` and `npm run check` still validate its routing rules.
+- `node scripts/check_build.test.mjs`: regression checks for platform config rewrites and stale or missing site files.
 - `npm run dev`: serve the generated site locally with the custom HTTP 404 page, asset MIME types, and cache classes.
 
 After source changes, rebuild and include both the generated `public/` files and `content/build-state.json`. The deployment does not need Python.
