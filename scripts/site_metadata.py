@@ -69,7 +69,7 @@ def _structured_data(title,description,path,image,image_alt,article):
         graph.append({'@type':'BreadcrumbList','@id':canonical+'#breadcrumb','itemListElement':[{'@type':'ListItem','position':i+1,'name':label,'item':url} for i,(label,url) in enumerate(crumbs)]})
         webpage['breadcrumb']={'@id':canonical+'#breadcrumb'}
     if article:
-        graph.append({'@type':'BlogPosting','@id':canonical+'#article','headline':article['title'],'description':description,'url':canonical,'mainEntityOfPage':{'@id':canonical+'#webpage'},'image':[image],'datePublished':article['published'],'author':{'@type':'Organization','name':article['author']},'publisher':{'@id':ORIGIN+'/#organization'},'isBasedOn':article['sourceUrl'],'articleSection':article.get('category','Research'),'inLanguage':'en'})
+        graph.append({'@type':'BlogPosting','@id':canonical+'#article','headline':article['title'],'description':description,'url':canonical,'mainEntityOfPage':{'@id':canonical+'#webpage'},'image':[image],'datePublished':article['published'],'author':{'@type':'Organization','name':article['author']},'publisher':{'@id':ORIGIN+'/#organization'},'citation':article['leaderboardUrl'],'articleSection':article.get('category','Research'),'inLanguage':'en'})
         webpage['mainEntity']={'@id':canonical+'#article'}
     return _json_script({'@context':'https://schema.org','@graph':graph})
 
@@ -157,5 +157,8 @@ def record_build_state():
     outputs += [PUBLIC/'sitemap.xml',PUBLIC/'robots.txt',PUBLIC/'site.webmanifest',PUBLIC/'favicon.ico']
     outputs += [PUBLIC/'assets/brand'/name for name in ['favicon.svg','favicon-16.png','favicon-32.png','apple-touch-icon.png','icon-192.png','icon-512.png']]
     outputs += list({PUBLIC/row['served'].lstrip('/') for row in image_rows})
+    blog=json.loads((ROOT/'content/blog-latest.json').read_text(encoding='utf-8'))
+    if blog.get('leaderboardScreenshot'):
+        outputs.append(PUBLIC/blog['leaderboardScreenshot'].lstrip('/'))
     state={'version':1,'inputs':{name:file_digest(ROOT/name) for name in inputs},'outputs':{p.relative_to(ROOT).as_posix():file_digest(p) for p in sorted(outputs)}}
     (ROOT/'content/build-state.json').write_bytes((json.dumps(state,indent=2)+'\n').encode('utf-8'))

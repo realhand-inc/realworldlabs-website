@@ -95,7 +95,7 @@ def validate(public=None):
                 require(any(x.get('@type')=='Organization' and x.get('email')=='sales@realworldlabs.com' for x in graph),label+': organization contact')
                 if '/blogs/' in '/'+label and label!='blogs/index.html':
                     posts=[x for x in graph if x.get('@type')=='BlogPosting']
-                    require(len(posts)==1 and posts[0].get('isBasedOn','').startswith('https://www.realhand.com/'),label+': article attribution')
+                    require(len(posts)==1 and posts[0].get('citation')=='https://robodojo-benchmark.com/leaderboard#agent',label+': official leaderboard link')
                     require(doc.meta.get('og:type')=='article',label+': article OG type')
         for reference in doc.references:
             if reference.startswith('mailto:'):

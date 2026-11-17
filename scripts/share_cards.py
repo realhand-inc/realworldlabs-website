@@ -21,7 +21,7 @@ def card_data():
         dict(key='realbot',path='/products/realbot/',title='RealBot',eyebrow='Robot series',summary='Humanoid and quadruped.\nOne robot family.',kind='realbot',status='Coming soon',alt='RealBot upcoming robot series: humanoid and quadruped robots.'),
         dict(key='realbrain',path='/products/realbrain/',title='RealBrain',eyebrow='AI model',summary='Our upcoming\nAI model.',kind='realbrain',status='Coming soon',alt='RealBrain, the forthcoming Realworld Labs AI model, with its blue brand logo.'),
         dict(key='blogs',path='/blogs/',title='Ideas in motion.',eyebrow='Research / Engineering / Stories',summary='Explore research and progress\nacross our robotics ecosystem.',kind='blog',image=blog['hero'],alt='Realworld Labs Blogs: robotics research, engineering, and stories.'),
-        dict(key='blog-'+blog['slug'],path='/blogs/'+blog['slug']+'/',title='Agent as Policy\non RoboDojo',eyebrow='Research / '+blog['dateLabel'],summary='42 Tasks.\nOne General-Purpose Agent.',kind='blog',image=blog['hero'],alt=blog['title']+' — originally published by '+blog['author']+'.')
+        dict(key='blog-'+blog['slug'],path='/blogs/'+blog['slug']+'/',title='Agent as Policy\non RoboDojo',eyebrow='Research / '+blog['dateLabel'],summary='42 Tasks.\nOne General-Purpose Agent.',kind='blog',image=blog['hero'],alt=blog['title']+' by '+blog['author']+'.')
     ])
     return data
 

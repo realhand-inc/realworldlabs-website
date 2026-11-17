@@ -61,7 +61,7 @@ npm run build
 - Canonical URLs and the sitemap use `https://www.realworldlabs.com/` with trailing slashes.
 - The custom 404 has `noindex` and no homepage canonical. There is no catch-all rewrite to the homepage.
 - HTML revalidates; replaceable assets use a short cache; content-fingerprinted CSS/JS are immutable.
-- The blog's structured data preserves the original author, publication date, and source attribution.
+- The blog's structured data uses the site author, preserves the publication date, and links the official RoboDojo Agent leaderboard.
 
 After deployment, verify the actual domain/TLS, canonical redirects, share-image URLs, and an unknown URL returning the custom body with HTTP 404. Submit `/sitemap.xml` in the owner's Search Console account after domain verification.
 
