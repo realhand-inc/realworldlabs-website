@@ -1,6 +1,6 @@
 // Deployment gate: verify the exact static artifacts validated by the Python builder.
 import { readFileSync, existsSync } from 'node:fs';
-import { resolve, dirname, extname, relative, isAbsolute } from 'node:path';
+import { resolve, dirname, basename, extname, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 
@@ -8,9 +8,11 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const manifestIndex = process.argv.indexOf('--manifest');
 const manifestPath = manifestIndex >= 0 ? resolve(process.argv[manifestIndex + 1]) : resolve(root, 'content/build-state.json');
 const textExtensions = new Set(['.py','.json','.js','.mjs','.css','.html','.xml','.txt','.svg','.webmanifest']);
+// Git control files have no extension, but also change line endings across checkouts.
+const textNames = new Set(['.gitattributes']);
 function digest(path) {
   let data = readFileSync(path);
-  if (textExtensions.has(extname(path))) data = Buffer.from(data.toString('utf8').replace(/\r\n/g, '\n'));
+  if (textExtensions.has(extname(path)) || textNames.has(basename(path))) data = Buffer.from(data.toString('utf8').replace(/\r\n/g, '\n'));
   return createHash('sha256').update(data).digest('hex');
 }
 if (!existsSync(manifestPath)) {

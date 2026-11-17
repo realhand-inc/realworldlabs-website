@@ -1,7 +1,7 @@
 // Exercise the real deployment command against an isolated copy of its recorded files.
 import { strict as assert } from 'node:assert';
 import { readFileSync, writeFileSync, copyFileSync, mkdirSync, mkdtempSync, rmSync, realpathSync } from 'node:fs';
-import { resolve, dirname, join, relative, isAbsolute } from 'node:path';
+import { resolve, dirname, extname, join, relative, isAbsolute } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -50,6 +50,41 @@ const t = { async test(name, run) {
     await t.test('unchanged checkout passes', () => {
       const result = verify();
       assert.equal(result.status, 0, result.log);
+    });
+    const attributes = readFileSync(join(fixture, '.gitattributes'), 'utf8').replace(/\r\n/g, '\n');
+    for (const [label, content] of [['LF', attributes], ['CRLF', attributes.replace(/\n/g, '\r\n')]]) {
+      await t.test('.gitattributes with ' + label + ' line endings passes', async () => {
+        await change('.gitattributes', content, () => {
+          const result = verify();
+          assert.equal(result.status, 0, result.log);
+        });
+      });
+    }
+    await t.test('Linux checkout with LF text files passes', () => {
+      const originals = new Map();
+      const extensions = new Set(['.py','.json','.js','.mjs','.css','.html','.xml','.txt','.svg','.webmanifest']);
+      try {
+        for (const name of names) {
+          // These fingerprinted assets are explicitly -text in .gitattributes.
+          if (name.startsWith('public/assets/build/')) continue;
+          if (name !== '.gitattributes' && !extensions.has(extname(name))) continue;
+          const path = join(fixture, name);
+          const original = readFileSync(path);
+          originals.set(path, original);
+          writeFileSync(path, original.toString('utf8').replace(/\r\n/g, '\n'));
+        }
+        const result = verify();
+        assert.equal(result.status, 0, result.log);
+      } finally {
+        for (const [path, original] of originals) writeFileSync(path, original);
+      }
+    });
+    await t.test('changed .gitattributes rules still fail', async () => {
+      await change('.gitattributes', attributes + '/public/assets/build/* text\n', () => {
+        const result = verify();
+        assert.equal(result.status, 1);
+        assert.match(result.log, /Changed source: \.gitattributes/);
+      });
     });
     await t.test('Vercel can reserialize and extend vercel.json', async () => {
       const config = JSON.parse(readFileSync(join(fixture, 'vercel.json'), 'utf8'));

@@ -135,10 +135,12 @@ def write_discovery():
     (PUBLIC/'site.webmanifest').write_bytes((json.dumps(manifest,indent=2)+'\n').encode('utf-8'))
 
 TEXT_EXTENSIONS={'.py','.json','.js','.mjs','.css','.html','.xml','.txt','.svg','.webmanifest'}
+# Match the deployment verifier, including extensionless Git control files.
+TEXT_FILENAMES={'.gitattributes'}
 
 def file_digest(path):
     content=path.read_bytes()
-    if path.suffix in TEXT_EXTENSIONS:content=content.replace(b'\r\n',b'\n')
+    if path.suffix in TEXT_EXTENSIONS or path.name in TEXT_FILENAMES:content=content.replace(b'\r\n',b'\n')
     return sha256(content).hexdigest()
 
 def record_build_state():
