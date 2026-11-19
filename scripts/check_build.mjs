@@ -36,7 +36,9 @@ for (const [kind, entries] of [['source', state.inputs || {}], ['output', state.
     else if (digest(path) !== expected) errors.push('Changed ' + kind + ': ' + name);
   }
 }
-if (Object.keys(state.outputs || {}).filter(name => name.endsWith('.html')).length !== 13) errors.push('Expected 13 generated HTML pages.');
+const blogCount = Object.keys(state.inputs || {}).filter(name => /^content\/blog-[^/]+\.json$/.test(name)).length;
+const expectedPages = 12 + blogCount; // Shared pages, product pages, 404, and every article.
+if (blogCount < 1 || Object.keys(state.outputs || {}).filter(name => name.endsWith('.html')).length !== expectedPages) errors.push('Expected ' + expectedPages + ' generated HTML pages.');
 if (errors.length) {
   console.error(errors.join('\n') + '\nRun npm run build, review the result, and include the updated generated files.');
   process.exit(1);

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="title description">
+<title id="title">JADE: Vision-language models in the action loop</title>
+<desc id="description">A vision-language model processes observations and current action latents, then provides dynamic guidance to an action expert throughout joint denoising.</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f7faff"/><stop offset="1" stop-color="#e0e9f7"/></linearGradient>
+<linearGradient id="panel" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#edf3fc"/></linearGradient>
+<pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#ccd9ed" stroke-opacity=".35"/></pattern>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="m1 1 7 4-7 4" fill="none" stroke="#436caa" stroke-width="1.5"/></marker>
+</defs>
+<rect width="1600" height="900" rx="32" fill="url(#bg)"/>
+<rect width="1600" height="900" rx="32" fill="url(#grid)"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="104" y="109" fill="#617c9f" font-size="20" letter-spacing="4">REALWORLD LABS / RESEARCH</text>
+<text x="99" y="239" fill="#153a91" font-size="120" font-weight="600" letter-spacing="-5">JADE</text>
+<text x="106" y="302" fill="#476181" font-size="34">Vision-language models, in the action loop.</text>
+<rect x="135" y="382" width="530" height="66" rx="18" fill="#edf3fc" stroke="#c6d7ef"/>
+<text x="400" y="423" text-anchor="middle" fill="#5c7698" font-size="22">Images / Instruction / Robot state</text>
+<path d="M400 448V480" stroke="#436caa" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="135" y="490" width="530" height="166" rx="28" fill="url(#panel)" stroke="#adc6e7" stroke-width="2"/>
+<text x="400" y="557" text-anchor="middle" fill="#284f86" font-size="32">Vision-Language Model</text>
+<text x="400" y="606" text-anchor="middle" fill="#6b83a4" font-size="22">Observation + current action</text>
+<rect x="935" y="490" width="530" height="166" rx="28" fill="url(#panel)" stroke="#adc6e7" stroke-width="2"/>
+<text x="1200" y="557" text-anchor="middle" fill="#284f86" font-size="32">Action Expert</text>
+<text x="1200" y="606" text-anchor="middle" fill="#6b83a4" font-size="22">Refine the action sequence</text>
+<path d="M680 570H918" fill="none" stroke="#436caa" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="800" y="539" text-anchor="middle" fill="#5a779d" font-size="20">Dynamic guidance</text>
+<path d="M1200 671V750H400V671" fill="none" stroke="#436caa" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="567" y="717" width="466" height="65" rx="20" fill="#e4edf9" stroke="#b8cde9"/>
+<text x="800" y="757" text-anchor="middle" fill="#476b9c" font-size="23">Current action / OAT latents</text>
+<text x="800" y="843" text-anchor="middle" fill="#748bab" font-size="20" letter-spacing=".5">Joint denoising at every sampling step.</text>
+</g></svg>

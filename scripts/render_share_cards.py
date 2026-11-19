@@ -16,7 +16,13 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--origin',default='http://localhost:3000')
     parser.add_argument('--debug-port',type=int,default=9228)
+    parser.add_argument('--key',action='append',help='Render only selected share cards; leave browser icons unchanged.')
     args=parser.parse_args()
+    cards=card_data()
+    if args.key:
+        unknown=set(args.key)-{card['key'] for card in cards}
+        if unknown:parser.error('Unknown card keys: '+', '.join(sorted(unknown)))
+        cards=[card for card in cards if card['key'] in args.key]
     debug='http://localhost:'+str(args.debug_port)
     targets=json.load(urllib.request.urlopen(debug+'/json',timeout=5))
     target=next(t for t in targets if t['type']=='page')
@@ -53,11 +59,15 @@ def main():
     call('Page.navigate',dict(url=args.origin+'/'))
     time.sleep(.3)
     frame=call('Page.getFrameTree')['frameTree']['frame']['id']
-    for card in card_data():
+    for card in cards:
         document(render_document(card,args.origin),1200,630)
         target=ROOT/'public/assets/share'/(card['key']+'.png')
         png(target)
         print('Rendered',target.name,flush=True)
+    if args.key:
+        ws.close()
+        print(f'Rendered {len(cards)} selected share cards.',flush=True)
+        return
     brand=ROOT/'public/assets/brand'
     (brand/'favicon.svg').write_bytes(icon_svg().encode('utf-8'))
     for size,name in [(16,'favicon-16.png'),(32,'favicon-32.png'),(180,'apple-touch-icon.png'),(192,'icon-192.png'),(512,'icon-512.png')]:
@@ -72,6 +82,6 @@ def main():
         offset+=len(frame)
     (ROOT/'public/favicon.ico').write_bytes(icon+b''.join(frames))
     ws.close()
-    print('Rendered 12 share cards, 5 browser icons, and the ICO fallback.',flush=True)
+    print(f'Rendered {len(cards)} share cards, 5 browser icons, and the ICO fallback.',flush=True)
 
 if __name__=='__main__':main()

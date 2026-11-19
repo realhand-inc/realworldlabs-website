@@ -6,6 +6,7 @@ from functools import lru_cache
 import json
 import re
 from share_cards import card_data
+from blog_content import load_blogs
 
 ROOT=Path(__file__).resolve().parents[1]
 PUBLIC=ROOT/'public'
@@ -69,7 +70,9 @@ def _structured_data(title,description,path,image,image_alt,article):
         graph.append({'@type':'BreadcrumbList','@id':canonical+'#breadcrumb','itemListElement':[{'@type':'ListItem','position':i+1,'name':label,'item':url} for i,(label,url) in enumerate(crumbs)]})
         webpage['breadcrumb']={'@id':canonical+'#breadcrumb'}
     if article:
-        graph.append({'@type':'BlogPosting','@id':canonical+'#article','headline':article['title'],'description':description,'url':canonical,'mainEntityOfPage':{'@id':canonical+'#webpage'},'image':[image],'datePublished':article['published'],'author':{'@type':'Organization','name':article['author']},'publisher':{'@id':ORIGIN+'/#organization'},'citation':article['leaderboardUrl'],'articleSection':article.get('category','Research'),'inLanguage':'en'})
+        graph.append({'@type':'BlogPosting','@id':canonical+'#article','headline':article['title'],'description':description,'url':canonical,'mainEntityOfPage':{'@id':canonical+'#webpage'},'image':[image],'datePublished':article['published'],'author':{'@type':'Organization','name':article['author']},'publisher':{'@id':ORIGIN+'/#organization'},'articleSection':article.get('category','Research'),'inLanguage':'en'})
+        citation=article.get('citationUrls') or article.get('leaderboardUrl')
+        if citation:graph[-1]['citation']=citation
         webpage['mainEntity']={'@id':canonical+'#article'}
     return _json_script({'@context':'https://schema.org','@graph':graph})
 
@@ -125,7 +128,7 @@ def page_head(title,description,path,noindex=False,article=None):
 
 def write_discovery():
     paths=list(dict.fromkeys(ROUTES))
-    assert len(paths)==12 and set(paths)==set(CARDS),paths
+    assert set(paths)==set(CARDS),paths
     sitemap='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sitemap+=''.join('  <url><loc>'+escape(ORIGIN+path)+'</loc></url>\n' for path in paths)
     sitemap+='</urlset>\n'
@@ -146,21 +149,22 @@ def file_digest(path):
 def record_build_state():
     inputs=[
         'scripts/build_site.py','scripts/site_experience.py','scripts/site_metadata.py',
-        'scripts/share_cards.py','scripts/render_share_cards.py','scripts/validate_site.py','scripts/check_build.mjs','scripts/preview_site.py','scripts/optimize_images.py',
-        'content/hardware.json','content/realstudio.json','content/blog-latest.json','content/image-optimizations.json',
+        'scripts/blog_content.py','scripts/share_cards.py','scripts/render_share_cards.py','scripts/validate_site.py','scripts/check_build.mjs','scripts/preview_site.py','scripts/optimize_images.py',
+        'content/hardware.json','content/realstudio.json','content/image-optimizations.json',
         'public/pages.css','public/pages.js','public/ecosystem.css','public/ecosystem.js',
         # Vercel may rewrite vercel.json before the build command runs.
         # validate_site checks its routing rules; it is not a rendered-page input.
         'package.json','.gitattributes'
     ]
+    inputs += [p.relative_to(ROOT).as_posix() for p in sorted((ROOT/'content').glob('blog-*.json'))]
     image_rows=json.loads((ROOT/'content/image-optimizations.json').read_text(encoding='utf-8'))['images']
     inputs += ['public'+row['source'] for row in image_rows]
     outputs=list(PUBLIC.rglob('*.html'))+list((PUBLIC/'assets/build').iterdir())+list((PUBLIC/'assets/share').glob('*.png'))
     outputs += [PUBLIC/'sitemap.xml',PUBLIC/'robots.txt',PUBLIC/'site.webmanifest',PUBLIC/'favicon.ico']
     outputs += [PUBLIC/'assets/brand'/name for name in ['favicon.svg','favicon-16.png','favicon-32.png','apple-touch-icon.png','icon-192.png','icon-512.png']]
     outputs += list({PUBLIC/row['served'].lstrip('/') for row in image_rows})
-    blog=json.loads((ROOT/'content/blog-latest.json').read_text(encoding='utf-8'))
-    if blog.get('leaderboardScreenshot'):
-        outputs.append(PUBLIC/blog['leaderboardScreenshot'].lstrip('/'))
-    state={'version':1,'inputs':{name:file_digest(ROOT/name) for name in inputs},'outputs':{p.relative_to(ROOT).as_posix():file_digest(p) for p in sorted(outputs)}}
+    for blog in load_blogs():
+        outputs += [PUBLIC/name.lstrip('/') for name in blog.get('relatedFiles',[])]
+        outputs.append(PUBLIC/blog['hero'].lstrip('/'))
+    state={'version':1,'inputs':{name:file_digest(ROOT/name) for name in inputs},'outputs':{p.relative_to(ROOT).as_posix():file_digest(p) for p in sorted(set(outputs))}}
     (ROOT/'content/build-state.json').write_bytes((json.dumps(state,indent=2)+'\n').encode('utf-8'))

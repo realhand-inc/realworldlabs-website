@@ -93,3 +93,31 @@
 .matrix-feature-group>ul{list-style:none;margin:0;padding:0 20px 9px}
 .matrix-feature-group li{padding:15px 0;border-top:1px solid #dce5f0;color:#425873;font-size:16px;line-height:1.75;text-wrap:pretty}
 }
+
+/* Research archive and JADE media, scoped to keep existing articles unchanged. */
+.blog-list{display:grid;gap:28px}
+.blog-feature-image img[src*="/blog/jade/"]{object-fit:contain;background:#e9f0fa}
+.jade-demo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 24px;margin:32px -90px}
+.article-body .jade-demo-grid figure{min-width:0;margin:0;padding:12px;border:1px solid #cbd9eb;border-radius:18px;background:#f5f9fe}
+.jade-demo-grid video{aspect-ratio:4/3;object-fit:contain}
+.jade-demo-grid figcaption{padding:0 6px 7px}
+.jade-demo-grid figcaption strong{display:block;margin-bottom:5px;color:#304d73;font-size:16px;font-weight:500}
+.jade-demo-grid figcaption span{display:block;font-size:14px;line-height:1.7}
+.jade-results-table table,.jade-efficiency-table table{min-width:0;table-layout:fixed}
+.jade-results-table th:first-child,.jade-efficiency-table th:first-child{width:36%}
+.jade-results-table td,.jade-efficiency-table td{white-space:nowrap}
+.jade-results-table strong{font-weight:600;color:#284f86}
+.jade-table-detail{font-size:12px;color:#657b99}
+@media(max-width:960px){.jade-demo-grid{margin-inline:0}}
+@media(max-width:600px){
+.jade-demo-grid{grid-template-columns:1fr;gap:20px}
+.jade-results-table th,.jade-results-table td,.jade-efficiency-table th,.jade-efficiency-table td{padding:12px 8px;font-size:13px}
+.jade-results-table caption,.jade-efficiency-table caption{padding:15px;font-size:13px}
+.jade-results-table th:first-child{width:35%}
+.jade-efficiency-table th:first-child{width:35%}
+.jade-efficiency-table th:nth-child(2){width:14%}
+.jade-table-detail{font-size:12px;line-height:1.55}
+}
+
+.jade-results-table td:last-child{white-space:normal}
+.blog-feature-image img[src="/assets/blog/jade/posters/bimanual-handover.jpg"]{object-fit:cover;object-position:center}

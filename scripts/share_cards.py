@@ -3,12 +3,14 @@ from pathlib import Path
 from html import escape
 import json
 from site_experience import product_visual
+from blog_content import load_blogs
 
 ROOT = Path(__file__).resolve().parents[1]
 
 def card_data():
     hardware=json.loads((ROOT/'content/hardware.json').read_text(encoding='utf-8'))
-    blog=json.loads((ROOT/'content/blog-latest.json').read_text(encoding='utf-8'))
+    posts=load_blogs()
+    blog=posts[0]
     data=[
         dict(key='home',path='/',title='Intelligence.\nMade physical.',eyebrow='The total solution',summary='AI models, software, and robotics.\nOne connected product ecosystem.',kind='ecosystem',alt='Realworld Labs: RealBrain, RealStudio, RealHand, RealArm, and RealBot in one product ecosystem.'),
         dict(key='products',path='/products/',title='One ecosystem.\nFive product families.',eyebrow='Our products',summary='Explore RealHand, RealArm, RealStudio,\nRealBot, and RealBrain.',kind='ecosystem',alt='The five Realworld Labs product families, from AI models and software to robotic hardware.')
@@ -20,9 +22,12 @@ def card_data():
         dict(key='realstudio',path='/products/realstudio/',title='RealStudio',eyebrow='Embodied AI platform',summary='One platform from robot control\nto on-site deployment.',kind='realstudio',alt='RealStudio: Control, Collect, Train, and Deploy, with the original blue logo and abstract software workflow.'),
         dict(key='realbot',path='/products/realbot/',title='RealBot',eyebrow='Robot series',summary='Humanoid and quadruped.\nOne robot family.',kind='realbot',status='Coming soon',alt='RealBot upcoming robot series: humanoid and quadruped robots.'),
         dict(key='realbrain',path='/products/realbrain/',title='RealBrain',eyebrow='AI model',summary='Our upcoming\nAI model.',kind='realbrain',status='Coming soon',alt='RealBrain, the forthcoming Realworld Labs AI model, with its blue brand logo.'),
-        dict(key='blogs',path='/blogs/',title='Ideas in motion.',eyebrow='Research / Engineering / Stories',summary='Explore research and progress\nacross our robotics ecosystem.',kind='blog',image=blog['hero'],alt='Realworld Labs Blogs: robotics research, engineering, and stories.'),
-        dict(key='blog-'+blog['slug'],path='/blogs/'+blog['slug']+'/',title='Agent as Policy\non RoboDojo',eyebrow='Research / '+blog['dateLabel'],summary='42 Tasks.\nOne General-Purpose Agent.',kind='blog',image=blog['hero'],alt=blog['title']+' by '+blog['author']+'.')
+        dict(key='blogs',path='/blogs/',title='Ideas in motion.',eyebrow='Research / Engineering / Stories',summary='Explore research and progress\nacross our robotics ecosystem.',kind='blog',image=blog.get('shareImage',blog['hero']),alt='Realworld Labs Blogs: robotics research, engineering, and stories.'),
     ])
+    for post in posts:
+        title=post.get('shareTitle','Agent as Policy\non RoboDojo' if post['slug']=='agent-as-policy-robodojo' else post['title'])
+        summary=post.get('shareSummary','42 Tasks.\nOne General-Purpose Agent.' if post['slug']=='agent-as-policy-robodojo' else post['excerpt'])
+        data.append(dict(key='blog-'+post['slug'],path='/blogs/'+post['slug']+'/',title=title,eyebrow='Research / '+post['dateLabel'],summary=summary,kind='blog',image=post.get('shareImage',post['hero']),alt=post['title']+' by '+post['author']+'.'))
     return data
 
 def ecosystem_art():

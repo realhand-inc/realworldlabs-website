@@ -101,6 +101,23 @@ const t = { async test(name, run) {
         assert.match(result.log, /Changed source: public\/pages\.css/);
       });
     });
+    await t.test('changed research article content still fails', async () => {
+      await change('content/blog-jade.json', '{}', () => {
+        const result = verify();
+        assert.equal(result.status, 1);
+        assert.match(result.log, /Changed source: content\/blog-jade\.json/);
+      });
+    });
+    await t.test('missing research demo video still fails', async () => {
+      const video = Object.keys(state.outputs).find(name =>
+        name.startsWith('public/assets/blog/jade/videos/') && name.endsWith('.mp4'));
+      assert.ok(video, 'Research videos must be recorded as deployment artifacts.');
+      await change(video, null, () => {
+        const result = verify();
+        assert.equal(result.status, 1);
+        assert.ok(result.log.includes('Missing output: ' + video), result.log);
+      });
+    });
     await t.test('changed generated HTML still fails', async () => {
       await change('public/index.html', '<h1>Stale output</h1>', () => {
         const result = verify();

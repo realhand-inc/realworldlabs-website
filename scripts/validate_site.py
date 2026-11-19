@@ -7,6 +7,8 @@ import json
 import re
 import struct
 import xml.etree.ElementTree as ET
+from share_cards import card_data
+from blog_content import load_blogs
 
 ROOT=Path(__file__).resolve().parents[1]
 ORIGIN='https://www.realworldlabs.com'
@@ -45,6 +47,8 @@ def validate(public=None):
     public=Path(public or ROOT/'public').resolve()
     documents={p:Document(p.read_text(encoding='utf-8')) for p in public.rglob('*.html')}
     errors=[];canonicals=[];references=0;shares=set()
+    expected_urls={ORIGIN+card['path'] for card in card_data()}
+    article_sources={'blogs/'+post['slug']+'/index.html':post for post in load_blogs()}
     def require(condition,message):
         if not condition:errors.append(message)
     def local_target(reference,source):
@@ -95,7 +99,13 @@ def validate(public=None):
                 require(any(x.get('@type')=='Organization' and x.get('email')=='sales@realworldlabs.com' for x in graph),label+': organization contact')
                 if '/blogs/' in '/'+label and label!='blogs/index.html':
                     posts=[x for x in graph if x.get('@type')=='BlogPosting']
-                    require(len(posts)==1 and posts[0].get('citation')=='https://robodojo-benchmark.com/leaderboard#agent',label+': official leaderboard link')
+                    require(len(posts)==1,label+': expected one article schema')
+                    source=article_sources.get(label,{})
+                    citation=source.get('citationUrls') or source.get('leaderboardUrl')
+                    if posts:
+                        require(posts[0].get('citation')==citation,label+': article citation differs from source')
+                        require(posts[0].get('datePublished')==source.get('published'),label+': article publication date')
+                        require(posts[0].get('headline')==source.get('title'),label+': article headline')
                     require(doc.meta.get('og:type')=='article',label+': article OG type')
         for reference in doc.references:
             if reference.startswith('mailto:'):
@@ -108,7 +118,7 @@ def validate(public=None):
             require(target.exists(),label+': missing '+reference)
             if target in documents and parsed.fragment:require(unquote(parsed.fragment) in documents[target].ids,label+': broken anchor '+reference)
     urls=[node.text for node in ET.parse(public/'sitemap.xml').getroot().findall('{http://www.sitemaps.org/schemas/sitemap/0.9}url/{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-    require(len(urls)==12 and len(set(urls))==12,'Expected 12 unique sitemap URLs')
+    require(len(urls)==len(expected_urls) and set(urls)==expected_urls,'Sitemap must include every registered page exactly once')
     require(set(urls)==set(canonicals),'Sitemap must exactly match the public canonicals')
     require(not any('404' in url or '?' in url or '#' in url for url in urls),'Sitemap contains noncanonical URLs')
     robots=(public/'robots.txt').read_text(encoding='utf-8')
@@ -127,7 +137,7 @@ def validate(public=None):
     require(config.get('outputDirectory')=='public' and config.get('cleanUrls') and config.get('trailingSlash'),'Static deployment route settings')
     require(not config.get('rewrites'),'Do not rewrite unknown pages to successful homepage responses')
     require(config.get('buildCommand')=='npm run verify:build','Deployment must verify generated artifacts')
-    require(len(shares)==12,'Expected page-specific share images for all 12 public pages')
+    require(len(shares)==len(expected_urls),'Expected a dedicated share image for every public page')
     image_rows=json.loads((ROOT/'content/image-optimizations.json').read_text(encoding='utf-8'))['images']
     for row in image_rows:
         for field,digest in [('source','source_sha256'),('served','served_sha256')]:

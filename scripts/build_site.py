@@ -6,6 +6,7 @@ import re
 from site_experience import ecosystem_section, product_visual, upcoming_content
 from site_metadata import prepare_assets, asset_url, page_head, write_discovery, record_build_state
 from validate_site import validate
+from blog_content import load_blogs
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / 'public'
@@ -73,7 +74,7 @@ def family_cards():
 <a class="family-card" href="/products/realbrain/"><div class="family-visual">'''+product_visual('realbrain',True)+'''</div><div class="family-copy"><p class="eyebrow">05 / AI model</p><h3>RealBrain</h3><p>Our upcoming AI model.</p><span class="card-link">Coming soon</span></div></a></div>'''
 
 def blog_card(blog, compact=False):
-    return f'''<a class="blog-feature {'is-compact' if compact else ''}" href="/blogs/{e(blog['slug'])}/"><div class="blog-feature-image"><img src="{e(blog['hero'])}" alt="{e(blog.get('heroAlt', blog['title']))}" loading="lazy"></div><div class="blog-feature-copy"><p class="eyebrow">{e(blog.get('category','Research'))} <span>·</span> {e(blog['dateLabel'])}</p><h3>{e(blog['title'])}</h3><p>{e(blog['excerpt'])}</p><span class="text-link">Read the story</span></div></a>'''
+    return f'''<a class="blog-feature {'is-compact' if compact else ''}" href="/blogs/{e(blog['slug'])}/"><div class="blog-feature-image"><img src="{e(blog.get('cardImage', blog['hero']))}" alt="{e(blog.get('cardImageAlt', blog.get('heroAlt', blog['title'])))}" loading="lazy"></div><div class="blog-feature-copy"><p class="eyebrow">{e(blog.get('category','Research'))} <span>·</span> {e(blog['dateLabel'])}</p><h3>{e(blog['title'])}</h3><p>{e(blog['excerpt'])}</p><span class="text-link">Read the story</span></div></a>'''
 
 def home(blog):
     body = ecosystem_section() + '''<section class="section-space container home-products" id="products"><div class="section-heading"><div><p class="eyebrow">Our ecosystem</p><h2>Five product families.<br>One embodied future.</h2></div><a class="text-link" href="/products/">View all products</a></div>'''+family_cards()+'''</section>
@@ -155,28 +156,33 @@ def brain_page():
     body=breadcrumb('RealBrain')+upcoming_content('realbrain')
     write('products/realbrain/index.html',page('RealBrain — AI model · Coming soon','RealBrain is the forthcoming AI model from Realworld Labs.',body,'products','/products/realbrain/'))
 
-def blogs(blog):
-    body='''<section class="page-heading container"><p class="eyebrow">Blogs</p><h1>Ideas, experiments.<br>Real-world progress.</h1><p>Research, engineering, and stories from our robotics ecosystem.</p></section><section class="container blog-list">'''+blog_card(blog)+'''</section>'''+contact()
+def blogs(posts):
+    body='''<section class="page-heading container"><p class="eyebrow">Blogs</p><h1>Ideas, experiments.<br>Real-world progress.</h1><p>Research, engineering, and stories from our robotics ecosystem.</p></section><section class="container blog-list">'''+''.join(blog_card(post) for post in posts)+'''</section>'''+contact()
     write('blogs/index.html',page('Blogs','Research, engineering, and stories from the Realworld Labs robotics ecosystem.',body,'blogs','/blogs/'))
+    for blog in posts:
+        blog_article(blog)
+
+def blog_article(blog):
     author=f'<span>{e(blog["author"])}</span>' if blog.get('author') else ''
-    body=breadcrumb(blog['title'],'Blogs','/blogs/')+f'''<article class="blog-article"><header class="article-header container"><p class="eyebrow">{e(blog.get('category','Research'))}</p><h1>{e(blog['title'])}</h1><div class="article-meta"><time datetime="{e(blog['published'])}">{e(blog['dateLabel'])}</time>{author}</div><p>{e(blog['excerpt'])}</p></header><div class="article-cover container"><img src="{e(blog['hero'])}" alt="{e(blog.get('heroAlt',blog['title']))}" fetchpriority="high"></div><div class="article-body">{blog['bodyHtml']}</div><div class="article-end"><a class="text-link" href="/blogs/">Back to all stories</a><a class="text-link" href="{e(blog['leaderboardUrl'])}" target="_blank" rel="noopener">View the RoboDojo Agent leaderboard</a></div></article>'''+contact()
+    resource=f'<a class="text-link" href="{e(blog["leaderboardUrl"])}" target="_blank" rel="noopener">View the RoboDojo Agent leaderboard</a>' if blog.get('leaderboardUrl') else ''
+    body=breadcrumb(blog['title'],'Blogs','/blogs/')+f'''<article class="blog-article"><header class="article-header container"><p class="eyebrow">{e(blog.get('category','Research'))}</p><h1>{e(blog['title'])}</h1><div class="article-meta"><time datetime="{e(blog['published'])}">{e(blog['dateLabel'])}</time>{author}</div><p>{e(blog['excerpt'])}</p></header><div class="article-cover container"><img src="{e(blog['hero'])}" alt="{e(blog.get('heroAlt',blog['title']))}" fetchpriority="high"></div><div class="article-body">{blog['bodyHtml']}</div><div class="article-end"><a class="text-link" href="/blogs/">Back to all stories</a>{resource}</div></article>'''+contact()
     write(f'blogs/{blog["slug"]}/index.html',page(blog['title'],blog['excerpt'],body,'blogs',f'/blogs/{blog["slug"]}/',article=blog))
 
 def main():
     prepare_assets()
     hardware=read_json('hardware.json')
     if isinstance(hardware,dict):hardware=hardware.get('products',list(hardware.values()))
-    blog=read_json('blog-latest.json')
+    posts=load_blogs()
     studio=read_json('realstudio.json')
     assert len(hardware)==5 and {p['slug'] for p in hardware}=={'l6','o6','l20','l30','p7'}
-    home(blog);products_index(hardware)
+    home(posts[0]);products_index(hardware)
     for product in hardware:hardware_page(product,hardware)
-    studio_page(studio);bot_page();brain_page();blogs(blog)
+    studio_page(studio);bot_page();brain_page();blogs(posts)
     write('404.html',page('Page not found','Explore products and stories from Realworld Labs.','<section class="page-heading container not-found"><p class="eyebrow">404</p><h1>Let’s find your<br>next connection.</h1><p>This page could not be found.</p><a class="button" href="/products/">Explore our products</a></section>',path='/404.html',noindex=True))
     write_discovery()
     report=validate(PUBLIC)
     record_build_state()
     print('Launch checks: '+json.dumps(report))
-    print('Built homepage, product overview, 8 product pages, blog listing, latest article, and 404 page.')
+    print(f'Built homepage, product overview, 8 product pages, blog listing, {len(posts)} research articles, and 404 page.')
 
 if __name__=='__main__':main()
