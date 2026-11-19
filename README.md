@@ -13,7 +13,7 @@ Open http://localhost:3000/ .
 - `content/realstudio.json`: capabilities, independent editions, and feature matrix from the supplied new PDFs.
 - `content/blog-latest.json`: the Agent as Policy research article and its publication metadata.
 - `content/blog-jade.json`: the JADE research article, manuscript-derived figures/tables, and four real-robot demonstrations.
-- `scripts/blog_content.py`: loads all `content/blog-*.json` entries by publication date; the newest appears on the homepage and every entry gets its own article page.
+- `scripts/blog_content.py`: loads all `content/blog-*.json` entries by publication date; the two newest appear on the homepage and every entry gets its own article page.
 - `scripts/build_site.py`: shared layout and static page templates.
 - `scripts/site_metadata.py`: canonical/share/schema metadata, discovery files, asset fingerprints, and build state.
 - `scripts/site_experience.py`: product artwork, conceptual ecosystem data, and Coming soon pages.
@@ -34,8 +34,10 @@ Supplied RealStudio PDFs are content references only. Do not copy them into publ
 
 - `npm run check`: validate metadata, share images, internal links and anchors, optimized image records, and routing settings.
 - `npm run verify:build`: verify source and generated-file hashes using Node only. Vercel runs this command before deployment; stale or missing generated files fail deployment. The platform-processed `vercel.json` is excluded from byte hashing because Vercel can rewrite it before this step; `npm run build` and `npm run check` still validate its routing rules.
-- `node scripts/check_build.test.mjs`: regression checks for platform config rewrites, line endings, and stale or missing site files, including research content and demo videos.
+- `node scripts/check_build.test.mjs`: regression checks for platform config rewrites, UTF-8 text line endings, actual Git checkout bytes, and stale or missing site files, including research content and demo videos.
 - `npm run dev`: serve the generated site locally with the custom HTTP 404 page, asset MIME types, cache classes, and MP4 byte-range requests for seeking.
+
+Hashing normalizes CRLF/LF in UTF-8 text regardless of extension, including CSV and Git dotfiles. Binary images and videos are hashed without changing their bytes. The checkout regression reads actual Git blobs so it also covers transformations performed when files are committed.
 
 After source changes, rebuild and include both the generated `public/` files and `content/build-state.json`. The deployment does not need Python.
 

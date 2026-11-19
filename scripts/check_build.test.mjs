@@ -1,7 +1,7 @@
 // Exercise the real deployment command against an isolated copy of its recorded files.
 import { strict as assert } from 'node:assert';
 import { readFileSync, writeFileSync, copyFileSync, mkdirSync, mkdtempSync, rmSync, realpathSync } from 'node:fs';
-import { resolve, dirname, extname, join, relative, isAbsolute } from 'node:path';
+import { resolve, dirname, join, relative, isAbsolute } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -60,24 +60,84 @@ const t = { async test(name, run) {
         });
       });
     }
-    await t.test('Linux checkout with LF text files passes', () => {
+    const csvNames = Object.keys(state.outputs).filter(name => name.endsWith('.csv'));
+    assert.ok(csvNames.length, 'CSV downloads must be covered by deployment regression tests.');
+    for (const name of csvNames) {
+      const csv = readFileSync(join(fixture, name), 'utf8').replace(/\r\n/g, '\n');
+      for (const [label, content] of [['LF', csv], ['CRLF', csv.replace(/\n/g, '\r\n')]]) {
+        await t.test(name + ' with ' + label + ' line endings passes', async () => {
+          await change(name, content, () => {
+            const result = verify();
+            assert.equal(result.status, 0, result.log);
+          });
+        });
+      }
+    }
+    await t.test('actual Git checkout bytes pass with pending source updates', () => {
+      // Read real Git blobs instead of maintaining another list of text extensions.
+      const diff = spawnSync('git', ['diff', '--name-only', '-z', 'HEAD'], {
+        cwd: root, encoding: 'utf8',
+      });
+      assert.ifError(diff.error);
+      assert.equal(diff.status, 0, diff.stderr);
+      const modified = new Set(diff.stdout.split('\0').filter(Boolean));
+      const requested = [...names];
+      const blobs = spawnSync('git', ['cat-file', '--batch'], {
+        cwd: root, input: requested.map(name => 'HEAD:' + name + '\n').join(''),
+        maxBuffer: 512 * 1024 * 1024,
+      });
+      assert.ifError(blobs.error);
+      assert.equal(blobs.status, 0, blobs.stderr.toString('utf8'));
       const originals = new Map();
-      const extensions = new Set(['.py','.json','.js','.mjs','.css','.html','.xml','.txt','.svg','.webmanifest']);
+      let offset = 0;
+      let checkedCsv = 0;
       try {
-        for (const name of names) {
-          // These fingerprinted assets are explicitly -text in .gitattributes.
-          if (name.startsWith('public/assets/build/')) continue;
-          if (name !== '.gitattributes' && !extensions.has(extname(name))) continue;
+        for (const name of requested) {
+          const newline = blobs.stdout.indexOf(10, offset);
+          assert.ok(newline >= offset, 'Missing Git object header for ' + name);
+          const header = blobs.stdout.subarray(offset, newline).toString('utf8');
+          offset = newline + 1;
+          if (header.endsWith(' missing')) continue; // New files use their current working bytes.
+          const [, type, length] = header.split(' ');
+          assert.equal(type, 'blob', header);
+          const size = Number(length);
+          const content = blobs.stdout.subarray(offset, offset + size);
+          offset += size;
+          assert.equal(blobs.stdout[offset++], 10, 'Invalid Git object boundary');
+          if (modified.has(name)) continue; // Pending edits are the prospective commit contents.
           const path = join(fixture, name);
-          const original = readFileSync(path);
-          originals.set(path, original);
-          writeFileSync(path, original.toString('utf8').replace(/\r\n/g, '\n'));
+          originals.set(path, readFileSync(path));
+          writeFileSync(path, content);
+          if (name.endsWith('.csv')) checkedCsv++;
         }
+        assert.equal(offset, blobs.stdout.length);
+        assert.equal(checkedCsv, csvNames.length, 'Exercise committed CSV bytes, not working copies.');
         const result = verify();
         assert.equal(result.status, 0, result.log);
       } finally {
         for (const [path, original] of originals) writeFileSync(path, original);
       }
+    });
+    await t.test('changed CSV data still fails', async () => {
+      const name = csvNames[0];
+      const csv = readFileSync(join(fixture, name), 'utf8');
+      await change(name, csv + '\nunexpected,data\n', () => {
+        const result = verify();
+        assert.equal(result.status, 1);
+        assert.ok(result.log.includes('Changed output: ' + name), result.log);
+      });
+    });
+    await t.test('changed binary video bytes still fail', async () => {
+      const name = Object.keys(state.outputs).find(name => name.endsWith('.mp4'));
+      const data = readFileSync(join(fixture, name));
+      const index = data.indexOf(Buffer.from([13, 10]));
+      assert.ok(index >= 0, 'Use a real CRLF byte sequence within binary video data.');
+      const changed = Buffer.concat([data.subarray(0, index), data.subarray(index + 1)]);
+      await change(name, changed, () => {
+        const result = verify();
+        assert.equal(result.status, 1);
+        assert.ok(result.log.includes('Changed output: ' + name), result.log);
+      });
     });
     await t.test('changed .gitattributes rules still fail', async () => {
       await change('.gitattributes', attributes + '/public/assets/build/* text\n', () => {

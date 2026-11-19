@@ -95,7 +95,7 @@
 }
 
 /* Research archive and JADE media, scoped to keep existing articles unchanged. */
-.blog-list{display:grid;gap:28px}
+.blog-list,.home-blog-cards{display:grid;gap:28px}
 .blog-feature-image img[src*="/blog/jade/"]{object-fit:contain;background:#e9f0fa}
 .jade-demo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 24px;margin:32px -90px}
 .article-body .jade-demo-grid figure{min-width:0;margin:0;padding:12px;border:1px solid #cbd9eb;border-radius:18px;background:#f5f9fe}

@@ -137,14 +137,18 @@ def write_discovery():
     manifest={'name':SITE_NAME,'short_name':SITE_NAME,'start_url':'/','display':'browser','background_color':'#f1f3f7','theme_color':'#f1f3f7','icons':[{'src':'/assets/brand/icon-192.png','sizes':'192x192','type':'image/png','purpose':'any'},{'src':'/assets/brand/icon-512.png','sizes':'512x512','type':'image/png','purpose':'any'}]}
     (PUBLIC/'site.webmanifest').write_bytes((json.dumps(manifest,indent=2)+'\n').encode('utf-8'))
 
-TEXT_EXTENSIONS={'.py','.json','.js','.mjs','.css','.html','.xml','.txt','.svg','.webmanifest'}
-# Match the deployment verifier, including extensionless Git control files.
-TEXT_FILENAMES={'.gitattributes'}
-
 def file_digest(path):
     content=path.read_bytes()
-    if path.suffix in TEXT_EXTENSIONS or path.name in TEXT_FILENAMES:content=content.replace(b'\r\n',b'\n')
+    # Match the verifier: normalize all UTF-8 text, including CSV and dotfiles.
+    if b'\0' not in content:
+        try:
+            content.decode('utf-8')
+        except UnicodeDecodeError:
+            pass
+        else:
+            content=content.replace(b'\r\n',b'\n')
     return sha256(content).hexdigest()
+
 
 def record_build_state():
     inputs=[

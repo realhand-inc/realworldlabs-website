@@ -76,13 +76,13 @@ def family_cards():
 def blog_card(blog, compact=False):
     return f'''<a class="blog-feature {'is-compact' if compact else ''}" href="/blogs/{e(blog['slug'])}/"><div class="blog-feature-image"><img src="{e(blog.get('cardImage', blog['hero']))}" alt="{e(blog.get('cardImageAlt', blog.get('heroAlt', blog['title'])))}" loading="lazy"></div><div class="blog-feature-copy"><p class="eyebrow">{e(blog.get('category','Research'))} <span>·</span> {e(blog['dateLabel'])}</p><h3>{e(blog['title'])}</h3><p>{e(blog['excerpt'])}</p><span class="text-link">Read the story</span></div></a>'''
 
-def home(blog):
+def home(posts):
     body = ecosystem_section() + '''<section class="section-space container home-products" id="products"><div class="section-heading"><div><p class="eyebrow">Our ecosystem</p><h2>Five product families.<br>One embodied future.</h2></div><a class="text-link" href="/products/">View all products</a></div>'''+family_cards()+'''</section>
 <section class="about-section container" id="about" aria-labelledby="about-title">
   <div class="about-opening"><div class="about-heading"><p class="eyebrow">About Realworld Labs</p><h2 id="about-title">Intelligence, made<br>for the <span>real world.</span></h2><a class="text-link" href="/products/">Explore our product ecosystem</a></div><div class="about-story"><p class="about-lead">We build the hardware and software that connect embodied intelligence with physical action.</p><p>Our work spans dexterous hands, robotic arms, and an embodied AI software platform. We bring these capabilities into one product ecosystem, helping researchers and developers move between physical interaction, data collection, model training, and deployment.</p></div></div>
   <div class="about-approach"><article><p class="about-index">01 / Physical interaction</p><h3>Start with the real world.</h3><p>RealHand dexterous hands and the RealArm P7 provide the hardware for manipulation, motion, and interaction with the world.</p></article><article><p class="about-index">02 / Connected development</p><h3>Bring the workflow together.</h3><p>RealStudio brings Control, Collect, Train, and Deploy into one platform, supporting a connected workflow from robot operation to on-site deployment.</p></article><article><p class="about-index">03 / What comes next</p><h3>Build toward a fuller ecosystem.</h3><p>Our roadmap includes RealBot humanoid and quadruped robots and RealBrain, our AI model. Both product families are coming soon.</p></article></div>
 </section>
-<section class="section-space container home-blog"><div class="section-heading"><div><p class="eyebrow">From the blog</p><h2>Ideas in motion.</h2></div><a class="text-link" href="/blogs/">All stories</a></div>'''+blog_card(blog, True)+'''</section>'''+contact(identifier='contact')
+<section class="section-space container home-blog"><div class="section-heading"><div><p class="eyebrow">From the blog</p><h2>Ideas in motion.</h2></div><a class="text-link" href="/blogs/">All stories</a></div>'''+ '<div class="home-blog-cards">'+''.join(blog_card(post, True) for post in posts[:2])+ '</div></section>'+contact(identifier='contact')
     write('index.html', page('Intelligence. Made physical.', 'Dexterous hands, P7 robotic arms, RealStudio software, RealBot humanoid and quadruped robots, and the RealBrain AI model. Explore the Realworld Labs ecosystem.', body, extra=f'<script src="{asset_url("/ecosystem.js")}" defer></script>'))
 
 def products_index(hardware):
@@ -175,7 +175,7 @@ def main():
     posts=load_blogs()
     studio=read_json('realstudio.json')
     assert len(hardware)==5 and {p['slug'] for p in hardware}=={'l6','o6','l20','l30','p7'}
-    home(posts[0]);products_index(hardware)
+    home(posts);products_index(hardware)
     for product in hardware:hardware_page(product,hardware)
     studio_page(studio);bot_page();brain_page();blogs(posts)
     write('404.html',page('Page not found','Explore products and stories from Realworld Labs.','<section class="page-heading container not-found"><p class="eyebrow">404</p><h1>Let’s find your<br>next connection.</h1><p>This page could not be found.</p><a class="button" href="/products/">Explore our products</a></section>',path='/404.html',noindex=True))
